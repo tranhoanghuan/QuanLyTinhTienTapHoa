@@ -2,7 +2,8 @@ package tranhoanghuan.it.com.quanlytinhtientaphoa;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,13 +19,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         addControl();
+        checkNetwork();
         addEvents();
 
     }
 
     private void checkNetwork() {
         if(!isNetworkConnected()){
-            Toast.makeText(this, "Không có kết nối mạng! Vui lòng kết nối Internet", Toast.LENGTH_LONG).show();
+           AlertDialog.Builder builder = new AlertDialog.Builder(this);
+           builder.setTitle("Lỗi mạng");
+           builder.setMessage("Không có mạng. Vui lòng kiểm tra lại!");
+           builder.setCancelable(false);
+           builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialogInterface, int i) {
+                   dialogInterface.dismiss();
+               }
+           });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
 
     }
