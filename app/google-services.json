@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1096601070191",
+    "firebase_url": "https://quanlitinhtientaphoa.firebaseio.com",
+    "project_id": "quanlitinhtientaphoa",
+    "storage_bucket": "quanlitinhtientaphoa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096601070191:android:eb5232c482d3ed0e",
+        "android_client_info": {
+          "package_name": "tranhoanghuan.it.com.quanlytinhtientaphoa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1096601070191-u9rgbakoo27k7oa5rl0mhkrc5s1mdpuc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfwye7O1U9iDyVAcDvDvQvlqcD4MJSouE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
