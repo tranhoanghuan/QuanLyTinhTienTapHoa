@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="3"
+    tools:context="tranhoanghuan.it.com.quanlytinhtientaphoa.MainActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvTinhtien"
+        android:layout_width="match_parent"
+        android:foreground="?selectableItemBackground"
+        app:cardBackgroundColor="@android:color/white"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        app:cardElevation="10dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="1dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:paddingBottom="30dp"
+            android:src="@drawable/tinhtien" />
+
+        <TextView
+            android:layout_gravity="bottom|center_horizontal"
+            android:textColor="@android:color/black"
+            android:textSize="25dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tính tiền" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvThongke"
+        android:layout_width="match_parent"
+        android:foreground="?selectableItemBackground"
+        android:clickable="true"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@android:color/white"
+        android:layout_weight="1"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="1dp">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:paddingBottom="30dp"
+            android:src="@drawable/thongke" />
+
+        <TextView
+            android:layout_gravity="bottom|center_horizontal"
+            android:textColor="@android:color/black"
+            android:textSize="25dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thống kê" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvQuantri"
+        android:layout_width="match_parent"
+        app:cardElevation="10dp"
+        android:foreground="?selectableItemBackground"
+        android:clickable="true"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@android:color/white"
+        android:layout_weight="1"
+        app:cardCornerRadius="10dp">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:paddingBottom="30dp"
+            android:src="@drawable/quantri"
+            />
+
+        <TextView
+            android:layout_gravity="bottom|center_horizontal"
+            android:textColor="@android:color/black"
+            android:textSize="25dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quản trị" />
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>
