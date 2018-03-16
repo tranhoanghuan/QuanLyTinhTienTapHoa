@@ -1,6 +1,7 @@
 package tranhoanghuan.it.com.quanlytinhtientaphoa.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import tranhoanghuan.it.com.quanlytinhtientaphoa.HangHoa;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.R;
+import tranhoanghuan.it.com.quanlytinhtientaphoa.SuaHH;
 
 /**
  * Created by tranh on 13/03/2018.
@@ -39,8 +41,23 @@ public class Adapter_HH extends RecyclerView.Adapter<item_HH> {
     }
 
     @Override
-    public void onBindViewHolder(item_HH holder, int position) {
-        // handdle
+    public void onBindViewHolder(item_HH holder, final int position) {
+        holder.txtTensp.setText(hangHoaList.get(position).getName());
+        holder.txtGiasp.setText(hangHoaList.get(position).getPrice() + " VND");
+        holder.img_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //handle
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SuaHH.class);
+                intent.putExtra("position", position);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

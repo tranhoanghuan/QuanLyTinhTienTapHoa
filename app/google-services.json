@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1096601070191-2v7er1aefgp0vclihkkp25q7in9igtf4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tranhoanghuan.it.com.quanlytinhtientaphoa",
+            "certificate_hash": "b8ea09f47ef560b75c3ad2b98533baa68a756cc5"
+          }
+        },
+        {
           "client_id": "1096601070191-u9rgbakoo27k7oa5rl0mhkrc5s1mdpuc.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1096601070191-u9rgbakoo27k7oa5rl0mhkrc5s1mdpuc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

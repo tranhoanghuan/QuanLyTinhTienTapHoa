@@ -30,8 +30,12 @@
             android:name=".QuantriActivity"
             android:label="Quản trị"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Add_Activity"
+        <activity
+            android:name=".Add_Activity"
             android:label="Thêm hàng hóa"
+            android:parentActivityName=".QuantriActivity" />
+        <activity android:name=".SuaHH"
+            android:label="Sửa hàng hóa"
             android:parentActivityName=".QuantriActivity"></activity>
     </application>
 
