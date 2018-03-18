@@ -47,7 +47,7 @@ public class Adapter_HH extends RecyclerView.Adapter<item_HH> {
         holder.img_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //handle
+
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {

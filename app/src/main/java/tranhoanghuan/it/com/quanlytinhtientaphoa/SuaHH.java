@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,26 +49,26 @@ public class SuaHH extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.setMessage("Đang cập nhật dữ liệu");
-                progressDialog.show();
-                editData();
-                finish();
+                String textName = txtName.getText().toString();
+                String textPrice = txtPrice.getText().toString();
+                if(TextUtils.isEmpty(textName) || TextUtils.isEmpty(textPrice)){
+                    Toast.makeText(SuaHH.this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    progressDialog.setMessage("Đang cập nhật dữ liệu");
+                    progressDialog.show();
+                    editData();
+                    finish();
+                }
+
             }
         });
     }
 
     private void editData() {
-        mDatabase.child("Hanghoa").child(key).removeValue();
+//        mDatabase.child("Hanghoa").child(key).removeValue();
         final HangHoa hh = new HangHoa();
-        if(TextUtils.isEmpty(txtName.getText().toString())){
-            txtName.setError("Chưa nhập tên");
-            return;
-        }
         hh.setName(txtName.getText().toString());
-        if(TextUtils.isEmpty(txtPrice.getText().toString())){
-            txtName.setError("Chưa nhập giá");
-            return;
-        }
         hh.setPrice(Long.parseLong(txtPrice.getText().toString()));
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put(key, hh);
@@ -81,6 +82,7 @@ public class SuaHH extends AppCompatActivity {
     }
 
     private void addControls() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
         pos = intent.getIntExtra("position", -1);
         hangHoa = new HangHoa();
