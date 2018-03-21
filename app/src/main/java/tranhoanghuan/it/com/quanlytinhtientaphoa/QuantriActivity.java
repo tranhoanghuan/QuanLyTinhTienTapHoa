@@ -1,15 +1,23 @@
 package tranhoanghuan.it.com.quanlytinhtientaphoa;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -21,8 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Adapter.Adapter_HH;
+import tranhoanghuan.it.com.quanlytinhtientaphoa.Interface.IHanghoa;
 
-public class QuantriActivity extends AppCompatActivity {
+public class QuantriActivity extends AppCompatActivity implements IHanghoa{
      private DatabaseReference mDatabase;
      private RecyclerView recyclerViewHH;
      public static ArrayList<HangHoa> ListHH;
@@ -53,7 +62,7 @@ public class QuantriActivity extends AppCompatActivity {
         recyclerViewHH.setHasFixedSize(true);
         recyclerViewHH.setLayoutManager(gridLayoutManager);
         loadDataFromFB();
-        adapter = new Adapter_HH(this, ListHH, typeface);
+        adapter = new Adapter_HH(this, ListHH, typeface, this);
         recyclerViewHH.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -123,4 +132,35 @@ public class QuantriActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void delHanghoa(final int pos) {
+        final Dialog dialog = new Dialog(QuantriActivity.this);
+        dialog.setTitle("Xác nhận xóa");
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.alert_dialog_del);
+        Button btnOK = dialog.findViewById(R.id.btnOK);
+        Button btnHuy = dialog.findViewById(R.id.btnHuy);
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatabase.child("Hanghoa").child(keyList.get(pos)).removeValue(new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        Toast.makeText(QuantriActivity.this,"Xóa thành công!", Toast.LENGTH_LONG ).show();
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                dialog.cancel();
+            }
+        });
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
+    }
 }

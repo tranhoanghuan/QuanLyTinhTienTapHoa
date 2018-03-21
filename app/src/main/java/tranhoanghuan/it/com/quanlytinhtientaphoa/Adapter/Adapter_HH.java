@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import tranhoanghuan.it.com.quanlytinhtientaphoa.HangHoa;
+import tranhoanghuan.it.com.quanlytinhtientaphoa.Interface.IHanghoa;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.R;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.SuaHH;
 
@@ -21,17 +22,19 @@ import tranhoanghuan.it.com.quanlytinhtientaphoa.SuaHH;
  */
 
 public class Adapter_HH extends RecyclerView.Adapter<item_HH> {
-    Context context;
-    List<HangHoa> hangHoaList;
+    private Context context;
+    private List<HangHoa> hangHoaList;
     private Typeface typeface;
+    private IHanghoa iHanghoa;
 
     public Adapter_HH() {
     }
 
-    public Adapter_HH(Context context, List<HangHoa> hangHoaList, Typeface typeface) {
+    public Adapter_HH(Context context, List<HangHoa> hangHoaList, Typeface typeface, IHanghoa iHanghoa) {
         this.context = context;
         this.hangHoaList = hangHoaList;
         this.typeface = typeface;
+        this.iHanghoa = iHanghoa;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class Adapter_HH extends RecyclerView.Adapter<item_HH> {
         holder.img_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                iHanghoa.delHanghoa(position);
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
