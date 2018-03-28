@@ -1,7 +1,10 @@
 package tranhoanghuan.it.com.quanlytinhtientaphoa;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -49,24 +52,44 @@ public class SuaHH extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String textName = txtName.getText().toString();
-                String textPrice = txtPrice.getText().toString();
-                if(TextUtils.isEmpty(textName) || TextUtils.isEmpty(textPrice)){
-                    Toast.makeText(SuaHH.this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_LONG).show();
+                if(!isNetworkConnected()){
+                    showDialog();
                 }
                 else {
-                    progressDialog.setMessage("Đang cập nhật dữ liệu");
-                    progressDialog.show();
-                    editData();
-                    finish();
+                    String textName = txtName.getText().toString();
+                    String textPrice = txtPrice.getText().toString();
+                    if(TextUtils.isEmpty(textName) || TextUtils.isEmpty(textPrice)){
+                        Toast.makeText(SuaHH.this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        progressDialog.setMessage("Đang cập nhật dữ liệu");
+                        progressDialog.show();
+                        editData();
+                        finish();
+                    }
                 }
-
             }
         });
     }
 
+    private void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Lỗi mạng");
+        builder.setMessage("Không có mạng. Vui lòng kiểm tra lại!");
+        builder.setCancelable(false);
+        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+
     private void editData() {
-//        mDatabase.child("Hanghoa").child(key).removeValue();
+
         final HangHoa hh = new HangHoa();
         hh.setName(txtName.getText().toString());
         hh.setPrice(Long.parseLong(txtPrice.getText().toString()));
@@ -92,5 +115,10 @@ public class SuaHH extends AppCompatActivity {
         txtName = findViewById(R.id.txtName);
         txtPrice = findViewById(R.id.txtPrice);
         btnSave = findViewById(R.id.btnSave);
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 }

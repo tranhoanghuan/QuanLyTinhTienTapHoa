@@ -12,11 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".TinhtienActivity"
@@ -34,9 +29,20 @@
             android:name=".Add_Activity"
             android:label="Thêm hàng hóa"
             android:parentActivityName=".QuantriActivity" />
-        <activity android:name=".SuaHH"
+        <activity
+            android:name=".SuaHH"
             android:label="Sửa hàng hóa"
-            android:parentActivityName=".QuantriActivity"></activity>
+            android:parentActivityName=".QuantriActivity" />
+        <activity android:name=".SignInActivity"
+            android:label="Đăng nhập">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SignUpActivity"
+            android:label="Đăng ký"></activity>
     </application>
 
 </manifest>

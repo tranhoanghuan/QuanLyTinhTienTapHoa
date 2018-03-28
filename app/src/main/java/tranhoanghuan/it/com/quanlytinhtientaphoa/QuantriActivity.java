@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -134,33 +135,59 @@ public class QuantriActivity extends AppCompatActivity implements IHanghoa{
 
     @Override
     public void delHanghoa(final int pos) {
-        final Dialog dialog = new Dialog(QuantriActivity.this);
-        dialog.setTitle("Xác nhận xóa");
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.alert_dialog_del);
-        Button btnOK = dialog.findViewById(R.id.btnOK);
-        Button btnHuy = dialog.findViewById(R.id.btnHuy);
-        btnOK.setOnClickListener(new View.OnClickListener() {
+        if(!isNetworkConnected()){
+            showDialog();
+        }
+        else {
+            final Dialog dialog = new Dialog(QuantriActivity.this);
+            dialog.setTitle("Xác nhận xóa");
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.alert_dialog_del);
+            Button btnOK = dialog.findViewById(R.id.btnOK);
+            Button btnHuy = dialog.findViewById(R.id.btnHuy);
+            btnOK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mDatabase.child("Hanghoa").child(keyList.get(pos)).removeValue(new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                            Toast.makeText(QuantriActivity.this,"Xóa thành công!", Toast.LENGTH_LONG ).show();
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                    dialog.cancel();
+                }
+            });
+
+            btnHuy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+
+            dialog.show();
+        }
+
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Lỗi mạng");
+        builder.setMessage("Không có mạng. Vui lòng kiểm tra lại!");
+        builder.setCancelable(false);
+        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                mDatabase.child("Hanghoa").child(keyList.get(pos)).removeValue(new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                        Toast.makeText(QuantriActivity.this,"Xóa thành công!", Toast.LENGTH_LONG ).show();
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-                dialog.cancel();
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
             }
         });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
-        btnHuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.cancel();
-            }
-        });
-
-        dialog.show();
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 }
