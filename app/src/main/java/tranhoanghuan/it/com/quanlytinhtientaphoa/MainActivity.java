@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private CardView cvTinhtien, cvThongke, cvQuantri;
+    private String UID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
         addControl();
         checkNetwork();
         addEvents();
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 
@@ -76,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         cvTinhtien = (CardView) findViewById(R.id.cvTinhtien);
         cvQuantri = (CardView) findViewById(R.id.cvQuantri);
         cvThongke = (CardView) findViewById(R.id.cvThongke);
+        Intent intent = getIntent();
+        UID = intent.getStringExtra("UID");
+        Toast.makeText(this, UID,Toast.LENGTH_LONG).show();
     }
 
     private boolean isNetworkConnected() {

@@ -11,7 +11,7 @@
     app:cardCornerRadius="1dp"
     app:cardElevation="20dp"
     android:clickable="true"
-    android:foreground="?selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 android:id="@+id/btnHuy"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                style="?borderlessButtonStyle"
+                style="?android:attr/borderlessButtonStyle"
                 android:background="@drawable/rippl2"
                 android:layout_marginRight="2dp"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                 android:id="@+id/btnOK"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                style="?borderlessButtonStyle"
+                style="?android:attr/borderlessButtonStyle"
                 android:background="@drawable/rippl2"
                 android:layout_marginLeft="2dp"
                 android:layout_height="wrap_content"

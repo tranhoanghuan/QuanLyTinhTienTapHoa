@@ -43,6 +43,11 @@ public class SignInActivity extends AppCompatActivity {
 //        updateUI(currentUser);
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     private void addEvents() {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
                         Toast.makeText(SignInActivity.this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_LONG).show();
                     }
                     else {
-                        progressDialog.setMessage("Đang xác thực thông tin tài khoản");
+                        progressDialog.setMessage("Đang xác thực tài khoản");
                         progressDialog.show();
                         signIn(email, password);
                         txt_input_email.setText(null);
@@ -81,7 +86,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(SignInActivity.this, "Login is successful!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignInActivity.this, "Đăng nhập thành công!", Toast.LENGTH_LONG).show();
                     progressDialog.hide();
                     FirebaseUser user = mAuth.getCurrentUser();
                     String UID = user.getUid().toString();
@@ -90,7 +95,7 @@ public class SignInActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else {
-                    Toast.makeText(SignInActivity.this, "Login fail!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignInActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_LONG).show();
                     progressDialog.hide();
                 }
             }

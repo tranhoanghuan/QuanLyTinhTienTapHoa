@@ -1,6 +1,6 @@
 package tranhoanghuan.it.com.quanlytinhtientaphoa;
 
-import android.annotation.SuppressLint;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -11,12 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -45,17 +43,11 @@ public class QuantriActivity extends AppCompatActivity implements IHanghoa{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quantri);
         addControls();
-        addEvents();
-
-    }
-
-    private void addEvents() {
-
     }
 
     private void addControls() {
-        ListHH = new ArrayList<HangHoa>();
-        keyList= new ArrayList<String>();
+        ListHH = new ArrayList<>();
+        keyList= new ArrayList<>();
         typeface = Typeface.createFromAsset(getAssets(), "font/vnf-quicksand-bold.ttf");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         recyclerViewHH = findViewById(R.id.list_HH);
@@ -124,7 +116,6 @@ public class QuantriActivity extends AppCompatActivity implements IHanghoa{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         if (item.getItemId() == R.id.add) {
             Intent intent = new Intent(QuantriActivity.this, Add_Activity.class);
             startActivity(intent);

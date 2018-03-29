@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"
+            android:label="Quản lý tính tiền"/>
         <activity
             android:name=".TinhtienActivity"
             android:label="Tính tiền"
@@ -33,8 +33,7 @@
             android:name=".SuaHH"
             android:label="Sửa hàng hóa"
             android:parentActivityName=".QuantriActivity" />
-        <activity android:name=".SignInActivity"
-            android:label="Đăng nhập">
+        <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
