@@ -18,12 +18,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
     private EditText txt_input_email, txt_input_password, txt_input_reEnterPassword;
     private Button btn_signup;
     private TextView txt_link_login;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,24 +74,48 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
 
-    private void signUp(String email, String password) {
+    private void signUp(final String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(SignUpActivity.this, "Đăng ký thành công!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-                    startActivity(intent);
+                    FirebaseUser user = task.getResult().getUser();
+                    String UID = user.getUid();
+                    mDatabase.child(UID).child("User").setValue(email);
+                    String result = "Đăng ký thành công!";
+                    showDialogResult(result);
                 }
                 else {
-                    Toast.makeText(SignUpActivity.this, "Đăng ký thất bại!", Toast.LENGTH_LONG).show();
+                    String result = "Email đã tồn tại. Vui lòng nhập email khác!";
+                    showDialogResult(result);
                 }
             }
         });
+    }
+
+    private void showDialogResult(final String result) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Kết quả đăng ký");
+        builder.setMessage(result);
+        builder.setCancelable(false);
+        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                if(result.equals("Đăng ký thành công!")) {
+                    Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void addControls() {
@@ -97,6 +125,7 @@ public class SignUpActivity extends AppCompatActivity {
         btn_signup = findViewById(R.id.btn_signup);
         txt_link_login = findViewById(R.id.txt_link_login);
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     private void showDialog() {

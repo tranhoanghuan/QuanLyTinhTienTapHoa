@@ -17,12 +17,12 @@
         android:clickable="true"
         app:cardElevation="10dp"
         android:layout_margin="10dp"
-        app:cardCornerRadius="50dp"
+        app:cardCornerRadius="10dp"
         android:layout_weight="1">
 
         <ImageView
             android:layout_gravity="center"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="150dp"
             android:paddingBottom="30dp"
             android:src="@drawable/tinhtien" />
@@ -47,7 +47,7 @@
         app:cardBackgroundColor="@android:color/white"
         android:layout_weight="1"
         app:cardElevation="10dp"
-        app:cardCornerRadius="50dp">
+        app:cardCornerRadius="10dp">
 
         <ImageView
             android:layout_gravity="center"
@@ -76,7 +76,7 @@
         android:layout_margin="10dp"
         app:cardBackgroundColor="@android:color/white"
         android:layout_weight="1"
-        app:cardCornerRadius="50dp">
+        app:cardCornerRadius="10dp">
 
         <ImageView
             android:layout_gravity="center"

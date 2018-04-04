@@ -9,12 +9,17 @@ import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
     private CardView cvTinhtien, cvThongke, cvQuantri;
-    private String UID;
+    public static String UID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
     }
 
     private void checkNetwork() {
@@ -78,13 +82,39 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mnuSignOut:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.mnuClose:
+               Intent intentClose = new Intent(MainActivity.this, SignInActivity.class);
+               // clear all activities in the stack
+               intentClose.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+               intentClose.putExtra("isClose", true);
+               startActivity(intentClose);
+               finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void addControl() {
         cvTinhtien = (CardView) findViewById(R.id.cvTinhtien);
         cvQuantri = (CardView) findViewById(R.id.cvQuantri);
         cvThongke = (CardView) findViewById(R.id.cvThongke);
         Intent intent = getIntent();
         UID = intent.getStringExtra("UID");
-        Toast.makeText(this, UID,Toast.LENGTH_LONG).show();
     }
 
     private boolean isNetworkConnected() {

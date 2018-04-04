@@ -9,6 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,19 +35,32 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        closeApp();
         addControls();
         addEvents();
+    }
+
+    private void closeApp() {
+        if(getIntent().getExtras() != null && getIntent().getExtras().getBoolean("isClose", false)) {
+            finish();
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
+        if(currentUser != null){
+            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+            String UID = currentUser.getUid().toString();
+            intent.putExtra("UID",UID);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed(){
 
     }
 
@@ -77,6 +93,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -93,6 +110,7 @@ public class SignInActivity extends AppCompatActivity {
                     Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                     intent.putExtra("UID",UID);
                     startActivity(intent);
+                    finish();
                 }
                 else {
                     Toast.makeText(SignInActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_LONG).show();
@@ -117,6 +135,22 @@ public class SignInActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_sign_in, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.mnuClose1) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void addControls() {
         btn_login = findViewById(R.id.btn_login);

@@ -30,6 +30,8 @@ import java.util.List;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Adapter.Adapter_HH;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Interface.IHanghoa;
 
+import static tranhoanghuan.it.com.quanlytinhtientaphoa.MainActivity.UID;
+
 public class QuantriActivity extends AppCompatActivity implements IHanghoa{
      private DatabaseReference mDatabase;
      private RecyclerView recyclerViewHH;
@@ -62,7 +64,7 @@ public class QuantriActivity extends AppCompatActivity implements IHanghoa{
     }
 
     private void loadDataFromFB() {
-        mDatabase.child("Hanghoa").orderByChild("name").addChildEventListener(new ChildEventListener() {
+        mDatabase.child(UID).child("Hanghoa").orderByChild("name").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 HangHoa item = dataSnapshot.getValue(HangHoa.class);
@@ -139,7 +141,7 @@ public class QuantriActivity extends AppCompatActivity implements IHanghoa{
             btnOK.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mDatabase.child("Hanghoa").child(keyList.get(pos)).removeValue(new DatabaseReference.CompletionListener() {
+                    mDatabase.child(UID).child("Hanghoa").child(keyList.get(pos)).removeValue(new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                             Toast.makeText(QuantriActivity.this,"Xóa thành công!", Toast.LENGTH_LONG ).show();

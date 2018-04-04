@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
+import static tranhoanghuan.it.com.quanlytinhtientaphoa.MainActivity.UID;
 import static tranhoanghuan.it.com.quanlytinhtientaphoa.QuantriActivity.ListHH;
 import static tranhoanghuan.it.com.quanlytinhtientaphoa.QuantriActivity.keyList;
 
@@ -89,13 +90,12 @@ public class SuaHH extends AppCompatActivity {
 
 
     private void editData() {
-
         final HangHoa hh = new HangHoa();
         hh.setName(txtName.getText().toString());
         hh.setPrice(Long.parseLong(txtPrice.getText().toString()));
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put(key, hh);
-        mDatabase.child("Hanghoa").updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mDatabase.child(UID).child("Hanghoa").updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 progressDialog.hide();
