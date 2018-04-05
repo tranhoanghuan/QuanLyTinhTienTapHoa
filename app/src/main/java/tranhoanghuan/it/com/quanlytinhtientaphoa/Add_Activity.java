@@ -8,18 +8,15 @@ import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.net.ConnectivityManager;
-import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
@@ -35,7 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import static tranhoanghuan.it.com.quanlytinhtientaphoa.MainActivity.UID;
 import static tranhoanghuan.it.com.quanlytinhtientaphoa.QuantriActivity.keyList;
@@ -210,6 +206,9 @@ public class Add_Activity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        else {
+            Toast.makeText(Add_Activity.this, "Camera chưa được cấp quyền hoạt động!", Toast.LENGTH_LONG).show();
         }
     }
 

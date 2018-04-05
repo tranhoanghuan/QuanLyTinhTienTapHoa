@@ -22,7 +22,7 @@
 
         <ImageView
             android:layout_gravity="center"
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="150dp"
             android:paddingBottom="30dp"
             android:src="@drawable/tinhtien" />
