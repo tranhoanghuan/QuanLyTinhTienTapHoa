@@ -21,28 +21,35 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode"/>
         <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:label="Quản lý tính tiền"/>
         <activity
             android:name=".TinhtienActivity"
+            android:screenOrientation="portrait"
             android:label="Tính tiền"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ThongkeActivity"
+            android:screenOrientation="portrait"
             android:label="Thống kê"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".QuantriActivity"
+            android:screenOrientation="portrait"
             android:label="Quản trị"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Add_Activity"
+            android:screenOrientation="portrait"
             android:label="Thêm hàng hóa"
             android:parentActivityName=".QuantriActivity" />
         <activity
             android:name=".SuaHH"
+            android:screenOrientation="portrait"
             android:label="Sửa hàng hóa"
             android:parentActivityName=".QuantriActivity" />
-        <activity android:name=".SignInActivity">
+        <activity android:name=".SignInActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,6 +57,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity"
+            android:screenOrientation="portrait"
             android:label="Đăng ký"></activity>
     </application>
 

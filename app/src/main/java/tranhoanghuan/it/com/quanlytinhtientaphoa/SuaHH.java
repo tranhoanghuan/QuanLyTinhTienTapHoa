@@ -43,7 +43,6 @@ public class SuaHH extends AppCompatActivity {
         loadData();
         addEvents();
     }
-
     private void loadData() {
         txtName.setText(hangHoa.getName());
         txtPrice.setText(Long.toString(hangHoa.getPrice()));

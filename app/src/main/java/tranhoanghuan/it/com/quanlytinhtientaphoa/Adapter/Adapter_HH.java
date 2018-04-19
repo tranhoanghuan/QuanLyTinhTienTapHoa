@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import tranhoanghuan.it.com.quanlytinhtientaphoa.HangHoa;
@@ -45,8 +46,9 @@ public class Adapter_HH extends RecyclerView.Adapter<item_HH> {
 
     @Override
     public void onBindViewHolder(item_HH holder, final int position) {
+        DecimalFormat dec = new DecimalFormat("##,###,###,###");
         holder.txtTensp.setText(hangHoaList.get(position).getName());
-        holder.txtGiasp.setText(hangHoaList.get(position).getPrice() + " VND");
+        holder.txtGiasp.setText(dec.format(hangHoaList.get(position).getPrice()) + " VND");
         holder.img_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

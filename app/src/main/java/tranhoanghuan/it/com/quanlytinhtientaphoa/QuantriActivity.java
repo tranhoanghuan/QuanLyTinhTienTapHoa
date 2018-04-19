@@ -33,12 +33,12 @@ import tranhoanghuan.it.com.quanlytinhtientaphoa.Interface.IHanghoa;
 import static tranhoanghuan.it.com.quanlytinhtientaphoa.MainActivity.UID;
 
 public class QuantriActivity extends AppCompatActivity implements IHanghoa{
-     private DatabaseReference mDatabase;
-     private RecyclerView recyclerViewHH;
-     public static ArrayList<HangHoa> ListHH;
-     public static ArrayList<String> keyList;
-     public static Adapter_HH adapter;
-     private Typeface typeface;
+    private DatabaseReference mDatabase;
+    private RecyclerView recyclerViewHH;
+    public static ArrayList<HangHoa> ListHH;
+    public static ArrayList<String> keyList;
+    public static Adapter_HH adapter;
+    private Typeface typeface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +112,7 @@ public class QuantriActivity extends AppCompatActivity implements IHanghoa{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_add, menu);
+        inflater.inflate(R.menu.quantri, menu);
         return true;
     }
 
