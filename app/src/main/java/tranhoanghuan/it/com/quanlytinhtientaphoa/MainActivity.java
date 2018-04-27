@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,11 +20,18 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private CardView cvTinhtien, cvThongke, cvQuantri;
-    public static String UID;
+    private String UID;
+    private String nameUID = "UID_Main";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        UID = intent.getStringExtra("UID");
+        if (savedInstanceState != null && UID == null ) {
+            // Restore UID from saved state
+           UID = savedInstanceState.getString("UID_M");
+        }
         addControl();
         checkNetwork();
         addEvents();
@@ -59,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(MainActivity.this, TinhtienActivity.class);
+                it.putExtra(nameUID,UID);
                 startActivity(it);
             }
         });
@@ -68,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(MainActivity.this, ThongkeActivity.class);
+                it.putExtra(nameUID,UID);
                 startActivity(it);
             }
         });
@@ -77,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(MainActivity.this, QuantriActivity.class);
+                it.putExtra(nameUID,UID);
                 startActivity(it);
             }
         });
@@ -113,12 +124,18 @@ public class MainActivity extends AppCompatActivity {
         cvTinhtien = (CardView) findViewById(R.id.cvTinhtien);
         cvQuantri = (CardView) findViewById(R.id.cvQuantri);
         cvThongke = (CardView) findViewById(R.id.cvThongke);
-        Intent intent = getIntent();
-        UID = intent.getStringExtra("UID");
+
     }
 
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
+    }
+
+    // Save UID
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString("UID_M", UID);
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

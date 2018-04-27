@@ -25,25 +25,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Adapter.Adapter_HH;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Interface.IHanghoa;
 
-import static tranhoanghuan.it.com.quanlytinhtientaphoa.MainActivity.UID;
 
 public class QuantriActivity extends AppCompatActivity implements IHanghoa{
     private DatabaseReference mDatabase;
     private RecyclerView recyclerViewHH;
-    public static ArrayList<HangHoa> ListHH;
-    public static ArrayList<String> keyList;
-    public static Adapter_HH adapter;
+    private ArrayList<HangHoa> ListHH;
+    private ArrayList<String> keyList;
+    private Adapter_HH adapter;
     private Typeface typeface;
+    private String UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quantri);
+        Intent intent = getIntent();
+        UID = intent.getStringExtra("UID_Main");
+        if (savedInstanceState != null && UID == null) {
+            // Restore UID from saved state
+            UID = savedInstanceState.getString("UID");
+        }
         addControls();
     }
 
@@ -57,14 +62,13 @@ public class QuantriActivity extends AppCompatActivity implements IHanghoa{
         recyclerViewHH.setHasFixedSize(true);
         recyclerViewHH.setLayoutManager(gridLayoutManager);
         loadDataFromFB();
-        adapter = new Adapter_HH(this, ListHH, typeface, this);
+        adapter = new Adapter_HH(this, ListHH, keyList, typeface,this, UID);
         recyclerViewHH.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
     }
 
     private void loadDataFromFB() {
-        mDatabase.child(UID).child("Hanghoa").orderByChild("name").addChildEventListener(new ChildEventListener() {
+        mDatabase.child(UID).child("Hanghoa").orderByChild("tenHang").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 HangHoa item = dataSnapshot.getValue(HangHoa.class);
@@ -120,7 +124,13 @@ public class QuantriActivity extends AppCompatActivity implements IHanghoa{
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add) {
             Intent intent = new Intent(QuantriActivity.this, Add_Activity.class);
+            intent.putExtra("UID_QT", UID);
+            intent.putStringArrayListExtra("listKey", keyList);
             startActivity(intent);
+        }
+        else if (item.getItemId()== android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -182,5 +192,12 @@ public class QuantriActivity extends AppCompatActivity implements IHanghoa{
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
+    }
+
+    // Save UID
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("UID", UID);
     }
 }

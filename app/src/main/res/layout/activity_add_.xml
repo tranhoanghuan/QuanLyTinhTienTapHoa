@@ -1,81 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:weightSum="2"
-    android:layout_marginTop="10dp"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
     tools:context="tranhoanghuan.it.com.quanlytinhtientaphoa.Add_Activity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="2">
+        android:padding="10dp"
+        android:gravity="center|center_horizontal">
         <SurfaceView
             android:id="@+id/camera"
-            android:layout_width="match_parent"
-            android:layout_height="260dp"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|center_horizontal"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtBarcode"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:layout_margin="8dp">
+            <EditText
+                android:id="@+id/txtTenHang_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textSize="18dp"
-                android:textColor="#4CAF50"
-                />
-        </LinearLayout>
+                android:ems="10"
+                android:hint="Tên hàng hóa"
+                android:textColor="@android:color/black"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+            <EditText
+                android:id="@+id/txtGiale_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@android:color/black"
+                android:hint="Giá bán lẻ"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+            <EditText
+                android:id="@+id/txtGiasi_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@android:color/black"
+                android:hint="Giá bán sỉ"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+            <EditText
+                android:id="@+id/txtslGiasi_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="@android:color/black"
+                android:hint="Số lượng áp dụng giá sỉ"
+                android:inputType="numberDecimal" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/btnAdd"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="20dp"
+            android:layout_gravity="bottom"
+            android:text="Thêm"
+            style="@style/Widget.AppCompat.Button.Colored" />
+
+
     </LinearLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        android:layout_margin="10dp">
-        <EditText
-            android:id="@+id/txtName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Tên hàng hóa"
-            android:textColor="@android:color/black"
-            android:inputType="textPersonName" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-        <EditText
-            android:id="@+id/txtPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:textColor="@android:color/black"
-            android:hint="Giá hàng hóa"
-            android:inputType="number" />
-    </android.support.design.widget.TextInputLayout>
-
-    <Button
-        android:layout_marginTop="20dp"
-        android:id="@+id/btnAdd"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:textSize="20dp"
-        android:layout_gravity="bottom"
-        android:text="Thêm"
-        style="@style/Widget.AppCompat.Button.Colored" />
-
-</LinearLayout>
+</ScrollView>

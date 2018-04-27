@@ -42,11 +42,13 @@
             android:name=".Add_Activity"
             android:screenOrientation="portrait"
             android:label="Thêm hàng hóa"
+            android:windowSoftInputMode="adjustUnspecified"
             android:parentActivityName=".QuantriActivity" />
         <activity
             android:name=".SuaHH"
             android:screenOrientation="portrait"
             android:label="Sửa hàng hóa"
+            android:windowSoftInputMode="adjustUnspecified"
             android:parentActivityName=".QuantriActivity" />
         <activity android:name=".SignInActivity"
             android:screenOrientation="portrait">

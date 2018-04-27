@@ -8,10 +8,10 @@ import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,18 +21,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-import static tranhoanghuan.it.com.quanlytinhtientaphoa.MainActivity.UID;
-import static tranhoanghuan.it.com.quanlytinhtientaphoa.QuantriActivity.ListHH;
-import static tranhoanghuan.it.com.quanlytinhtientaphoa.QuantriActivity.keyList;
-
 public class SuaHH extends AppCompatActivity {
     private Button btnSave;
-    private EditText txtName, txtPrice;
+    private EditText txtTenhang_edit, txtGiaLe_edit, txtGiaSi_edit, txtslGiasi_edit;
     private DatabaseReference mDatabase;
-    private int pos;
     private String key;
     private HangHoa hangHoa;
     private ProgressDialog progressDialog;
+    private String UID;
 
 
     @Override
@@ -44,8 +40,18 @@ public class SuaHH extends AppCompatActivity {
         addEvents();
     }
     private void loadData() {
-        txtName.setText(hangHoa.getName());
-        txtPrice.setText(Long.toString(hangHoa.getPrice()));
+        txtTenhang_edit.setText(hangHoa.getTenHang());
+        txtGiaLe_edit.setText(Long.toString(hangHoa.getGiale()));
+        txtGiaSi_edit.setText(Long.toString(hangHoa.getGiaSi()));
+        txtslGiasi_edit.setText(Float.toString(hangHoa.getSlGiasi()));
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()== android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void addEvents() {
@@ -56,10 +62,16 @@ public class SuaHH extends AppCompatActivity {
                     showDialog();
                 }
                 else {
-                    String textName = txtName.getText().toString();
-                    String textPrice = txtPrice.getText().toString();
-                    if(TextUtils.isEmpty(textName) || TextUtils.isEmpty(textPrice)){
+                    String tenHang = txtTenhang_edit.getText().toString();
+                    String giaLe = txtGiaLe_edit.getText().toString();
+                    String giaSi = txtGiaSi_edit.getText().toString();
+                    String slGiasi = txtslGiasi_edit.getText().toString();
+                    if(TextUtils.isEmpty(tenHang) || TextUtils.isEmpty(giaLe) || TextUtils.isEmpty(giaSi) || TextUtils.isEmpty(slGiasi)){
                         Toast.makeText(SuaHH.this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_LONG).show();
+                    }
+                    else if(tenHang.equals(hangHoa.getTenHang()) && giaLe.equals(Long.toString(hangHoa.getGiale()))
+                            && giaSi.equals(Long.toString(hangHoa.getGiaSi())) && slGiasi.equals(Float.toString(hangHoa.getSlGiasi()))){
+                        finish();
                     }
                     else {
                         progressDialog.setMessage("Đang cập nhật dữ liệu");
@@ -90,8 +102,10 @@ public class SuaHH extends AppCompatActivity {
 
     private void editData() {
         final HangHoa hh = new HangHoa();
-        hh.setName(txtName.getText().toString());
-        hh.setPrice(Long.parseLong(txtPrice.getText().toString()));
+        hh.setTenHang(txtTenhang_edit.getText().toString());
+        hh.setGiale(Long.parseLong(txtGiaLe_edit.getText().toString()));
+        hh.setGiaSi(Long.parseLong(txtGiaSi_edit.getText().toString()));
+        hh.setSlGiasi(Float.parseFloat(txtslGiasi_edit.getText().toString()));
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put(key, hh);
         mDatabase.child(UID).child("Hanghoa").updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -106,13 +120,15 @@ public class SuaHH extends AppCompatActivity {
     private void addControls() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
-        pos = intent.getIntExtra("position", -1);
-        hangHoa = new HangHoa();
-        hangHoa = ListHH.get(pos);
-        key = keyList.get(pos);
+        UID = intent.getStringExtra("UID_QT");
+        hangHoa = (HangHoa) intent.getSerializableExtra("item");
+        key = intent.getStringExtra("key");
         progressDialog = new ProgressDialog(this);
-        txtName = findViewById(R.id.txtName);
-        txtPrice = findViewById(R.id.txtPrice);
+        txtslGiasi_edit = findViewById(R.id.txtslGiaSi_edit);
+        txtTenhang_edit = findViewById(R.id.txtTenhang_edit);
+        txtGiaLe_edit = findViewById(R.id.txtGiaLe_edit);
+        txtGiaSi_edit = findViewById(R.id.txtGiaSi_edit);
+
         btnSave = findViewById(R.id.btnSave);
     }
 

@@ -31,23 +31,50 @@
 
             <TextView
                 android:id="@+id/txtTensp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="textStart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="Cà phê đen"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16dp"
-                android:textAllCaps="true" />
+                android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/txtGiasp"
-                android:layout_width="150dp"
+                android:id="@+id/txtGiale"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textAlignment="textStart"
+                android:layout_marginTop="2dp"
                 android:text="VND 15.000"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:textSize="14dp" />
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtGiasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="VND 15.000"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/txtslGiasi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:text="VND 15.000"
+                android:textStyle="bold"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16dp" />
 
         </LinearLayout>
         <ImageView

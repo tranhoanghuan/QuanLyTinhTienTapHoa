@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="6dp"
+    android:layout_marginTop="6dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="20dp"
+    android:clickable="true"
+    android:id="@+id/card_list_item_tinhtien"
+    android:foreground="?android:attr/selectableItemBackground">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:text="Cà phê đen"
+                android:autoSizeTextType="uniform"
+                android:id="@+id/txtTensp_tt" />
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.25"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textAlignment="textEnd"
+                android:textSize="16dp"
+                android:autoSizeTextType="uniform"
+                android:text="15.000 VND"
+                android:id="@+id/txt_gia_tt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:elevation="10dp"
+                android:layout_weight="1"
+                android:weightSum="2"
+                android:translationZ="10dp"
+                android:layout_marginBottom="10dp"
+                android:padding="4dp">
+                <ImageView
+                    android:id="@+id/imgSub"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center|center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_sub"/>
+
+                <EditText
+                    android:id="@+id/txt_sl_sp"
+                    android:layout_gravity="center|center_vertical"
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textStyle="bold"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    android:padding="2dp"
+                    android:clickable="true"
+                    android:layout_gravity="center|center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:id="@+id/imgPlus"
+                    android:src="@drawable/ic_add" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img_delete_tt"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:gravity="right"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_delete" />
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
