@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="tranhoanghuan.it.com.quanlytinhtientaphoa.TinhtienBangtay">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_HH_ttbt"
+        android:layout_marginBottom="60dp"
+        tools:listitem="@layout/item_tinhtienbangtay">
+    </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:layout_margin="8dp"
+        android:id="@+id/btnHoanthanh"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:layout_gravity="bottom"
+        android:text="HOÀN THÀNH"
+        style="@style/Widget.AppCompat.Button.Colored" />
+
+</android.support.design.widget.CoordinatorLayout>

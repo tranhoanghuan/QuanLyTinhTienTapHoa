@@ -33,7 +33,7 @@
                 android:layout_weight="0.75"
                 android:textColor="@color/colorPrimary"
                 android:layout_gravity="center"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
                 android:text="Cà phê đen"
@@ -47,7 +47,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textAlignment="textEnd"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:autoSizeTextType="uniform"
                 android:text="15.000 VND"
                 android:id="@+id/txt_gia_tt" />
@@ -93,7 +93,7 @@
                     android:inputType="numberDecimal"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:layout_width="40dp"

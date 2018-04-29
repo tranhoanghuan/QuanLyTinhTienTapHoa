@@ -21,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
+import tranhoanghuan.it.com.quanlytinhtientaphoa.Model.HangHoa;
+
 public class SuaHH extends AppCompatActivity {
     private Button btnSave;
     private EditText txtTenhang_edit, txtGiaLe_edit, txtGiaSi_edit, txtslGiasi_edit;

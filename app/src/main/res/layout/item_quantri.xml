@@ -38,7 +38,7 @@
                 android:textAllCaps="true"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtGiale"
@@ -50,7 +50,7 @@
                 android:textAllCaps="true"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtGiasi"
@@ -74,7 +74,7 @@
                 android:textAlignment="textStart"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
         <ImageView

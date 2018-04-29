@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import tranhoanghuan.it.com.quanlytinhtientaphoa.HangHoa;
+import tranhoanghuan.it.com.quanlytinhtientaphoa.Model.HangHoa;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Interface.IHanghoa;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.R;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.SuaHH;

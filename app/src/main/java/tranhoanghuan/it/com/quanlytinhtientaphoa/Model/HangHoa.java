@@ -1,4 +1,4 @@
-package tranhoanghuan.it.com.quanlytinhtientaphoa;
+package tranhoanghuan.it.com.quanlytinhtientaphoa.Model;
 
 import java.io.Serializable;
 

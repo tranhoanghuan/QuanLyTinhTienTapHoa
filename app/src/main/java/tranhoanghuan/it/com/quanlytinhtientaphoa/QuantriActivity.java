@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Adapter.Adapter_HH;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Interface.IHanghoa;
+import tranhoanghuan.it.com.quanlytinhtientaphoa.Model.HangHoa;
 
 
 public class QuantriActivity extends AppCompatActivity implements IHanghoa{

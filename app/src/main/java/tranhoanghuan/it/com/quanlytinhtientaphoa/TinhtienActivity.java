@@ -13,25 +13,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.SparseArray;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,14 +35,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Adapter.Adapter_HH_TT;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Interface.IHanghoaTT;
+import tranhoanghuan.it.com.quanlytinhtientaphoa.Model.HangHoa;
+import tranhoanghuan.it.com.quanlytinhtientaphoa.Model.HanghoaHoadon;
+import tranhoanghuan.it.com.quanlytinhtientaphoa.Model.HanghoaTinhtien;
 
 
 public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
     private static final int REQUEST_CAMERA = 0;
+    private static final int REQUEST_CODE = 7;
+    private static final int REQUEST_CODE_1 = 17;
     private SurfaceView camera_tt;
     private Button btnThanhtoan;
     private BarcodeDetector barcodeDetector;
@@ -55,6 +60,7 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
     private DatabaseReference mDatabase;
     private RecyclerView recyclerViewTT;
     private ArrayList<HanghoaTinhtien> listHanghoaTT;
+    private ArrayList<String> listKey;
     private Adapter_HH_TT adapter_hh_tt;
     private Typeface typeface;
     private String UID;
@@ -73,15 +79,81 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
         addEvents();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_tinhtien, menu);
+        return true;
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()== android.R.id.home) {
             finish();
             return true;
         }
+        else if(item.getItemId() == R.id.mnutinhtien){
+            Intent intent = new Intent(TinhtienActivity.this, TinhtienBangtay.class);
+            intent.putExtra("UID_TT", UID);
+            startActivityForResult(intent, REQUEST_CODE);
+        }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE && resultCode == 77){
+            ArrayList<String> key = data.getStringArrayListExtra("key");
+            ArrayList<HangHoa> hh = (ArrayList<HangHoa>) data.getSerializableExtra("listHH");
+            if(key.size() > 0 && hh.size() > 0){
+                 for (int i=0; i< hh.size(); i++){
+                     HanghoaTinhtien tt = new HanghoaTinhtien(hh.get(i), 1, 1);
+                     listHanghoaTT.add(0, tt);
+                     listKey.add(0, key.get(i));
+                     adapter_hh_tt.notifyItemInserted(0);
+                     recyclerViewTT.smoothScrollToPosition(0);
+                     adapter_hh_tt.notifyDataSetChanged();
+                 }
+
+            }
+        }
+        if(requestCode == REQUEST_CODE_1 && resultCode == 27){
+            listKey.clear();
+            listHanghoaTT.clear();
+            adapter_hh_tt.notifyDataSetChanged();
+        }
+    }
+
     private void addEvents() {
+        btnThanhtoan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listHanghoaTT.size() > 0) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("ddwMMYYYYHHmmss");
+                    Date d = new Date();
+                    final String keyHD = sdf.format(d);
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    for(int i=0; i< listHanghoaTT.size(); i++){
+                        HanghoaTinhtien tinhtien = listHanghoaTT.get(i);
+                        HanghoaHoadon hoadon = new HanghoaHoadon(tinhtien.getHangHoa().getTenHang(), tinhtien.getSoLuong(), tinhtien.getDonGiaTT() );
+                        childUpdates.put(listKey.get(i), hoadon);
+                    }
+
+                    mDatabase.child(UID).child("Hoadon").child(keyHD).updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Intent intent = new Intent(TinhtienActivity.this, ChitietHoadon.class);
+                            intent.putExtra("keyKD", keyHD);
+                            intent.putExtra("UID_TT", UID);
+                            startActivityForResult(intent, REQUEST_CODE_1);
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(TinhtienActivity.this, "Bạn chưa chọn hàng hóa để tính tiền.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
 
@@ -89,23 +161,11 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
 
         recyclerViewTT = findViewById(R.id.recycleSpBan);
         listHanghoaTT = new ArrayList<>();
-        HangHoa h = new HangHoa("Test", 7000, 10000, 2);
-        HangHoa h1 = new HangHoa("Test", 7000, 10000, 2);
-        HangHoa h2 = new HangHoa("Test", 7000, 10000, 2);
-        HangHoa h3 = new HangHoa("Test", 7000, 10000, 2);
-        HanghoaTinhtien tt = new HanghoaTinhtien(h, 5);
-        HanghoaTinhtien tt1 = new HanghoaTinhtien(h1, 5);
-        HanghoaTinhtien tt2 = new HanghoaTinhtien(h2, 5);
-        HanghoaTinhtien tt3 = new HanghoaTinhtien(h2, 5);
-        listHanghoaTT.add(tt3);
-        listHanghoaTT.add(tt);
-        listHanghoaTT.add(tt1);
-        listHanghoaTT.add(tt2);
+        listKey = new ArrayList<>();
         typeface = Typeface.createFromAsset(getAssets(), "font/vnf-quicksand-bold.ttf");
         LinearLayoutManager gridLayoutManager = new LinearLayoutManager(this);
-        recyclerViewTT.setHasFixedSize(true);
         recyclerViewTT.setLayoutManager(gridLayoutManager);
-        adapter_hh_tt = new Adapter_HH_TT(this, listHanghoaTT, typeface, this);
+        adapter_hh_tt = new Adapter_HH_TT(this, listHanghoaTT, listKey, typeface, this);
         recyclerViewTT.setAdapter(adapter_hh_tt);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         camera_tt = findViewById(R.id.camera_tt);
@@ -169,20 +229,28 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
     }
 
     private void loadHanghoaFromFirebase() {
-        mDatabase.child(UID).child("Hanghoa").child(barcodeTT).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child(UID).child("Hanghoa").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                    HangHoa tinhtien = dataSnapshot.getValue(HangHoa.class);
-                    try {
-                        float soLuong = ChooseSouong(tinhtien.getTenHang());
-                        HanghoaTinhtien tinhtien1 = new HanghoaTinhtien(tinhtien, soLuong);
-                        listHanghoaTT.add(tinhtien1);
+                boolean flag = true;
+                for(DataSnapshot data: dataSnapshot.getChildren()) {
+                    if (barcodeTT.equals(data.getKey())) {
+                        HangHoa tinhtien = data.getValue(HangHoa.class);
+                        float soLuong = 1;
+                        long dg = 1;
+                        HanghoaTinhtien tinhtien1 = new HanghoaTinhtien(tinhtien, soLuong, dg);
+                        listHanghoaTT.add(0, tinhtien1);
+                        listKey.add(0, barcodeTT);
+                        adapter_hh_tt.notifyItemInserted(0);
+                        recyclerViewTT.smoothScrollToPosition(0);
                         adapter_hh_tt.notifyDataSetChanged();
-                        Toast.makeText(TinhtienActivity.this, "so luong: " + adapter_hh_tt.getItemCount(),Toast.LENGTH_LONG).show();
+                        flag = false;
+                        break;
                     }
-                    catch (NullPointerException e){
-                        Toast.makeText(TinhtienActivity.this, "Hàng hóa không tồn tại trong sơ sở dữ liệu.",Toast.LENGTH_LONG).show();
-                    }
+                }
+                if(flag){
+                    Toast.makeText(TinhtienActivity.this, "Hàng hóa không tồn tại trong sơ sở dữ liệu.", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
@@ -191,68 +259,38 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
         });
     }
 
-    private float ChooseSouong(String tenHang) {
-        final float[] soLuongHH = {1};
-        final float[] soLuongBan = new float[1];
-        // create Dialog
-        final Dialog dialog = new Dialog(TinhtienActivity.this);
-        dialog.setTitle("Chọn số lượng hàng hóa");
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_sl);
-        TextView txtTensp_sl = dialog.findViewById(R.id.txtTensp_sl);
-        final EditText txt_sl_sp_sl = dialog.findViewById(R.id.txt_sl_sp_sl);
-        ImageView imgSub_sl = dialog.findViewById(R.id.imgSub_sl);
-        ImageView imgPlus_sl = dialog.findViewById(R.id.imgPlus_sl);
-        Button btnLuu_sl = dialog.findViewById(R.id.btnLuu_sl);
 
-        txtTensp_sl.setText(tenHang);
-        txt_sl_sp_sl.setText(Float.toString(soLuongHH[0]));
-        dialog.show();
-
-        imgSub_sl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(soLuongHH[0] > 1) {
-                    soLuongHH[0]--;
-                    txt_sl_sp_sl.setText(Float.toString(soLuongHH[0]));
-                }
-            }
-        });
-
-        imgPlus_sl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                soLuongHH[0]++;
-                txt_sl_sp_sl.setText(Float.toString(soLuongHH[0]));
-            }
-        });
-
-
-        btnLuu_sl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String sl = txt_sl_sp_sl.getText().toString();
-                if(TextUtils.isEmpty(sl)) {
-                    Toast.makeText(TinhtienActivity.this, "Chưa nhập số lượng!", Toast.LENGTH_LONG).show();
-                }
-                else if(Float.parseFloat(sl) <= 0){
-                    Toast.makeText(TinhtienActivity.this, "Số lượng phải lớn hơn không.",Toast.LENGTH_LONG).show();
-                    txt_sl_sp_sl.setText(sl);
-                }
-                else {
-                    soLuongBan[0] = Float.parseFloat(sl);
-                    dialog.cancel();
-                }
-            }
-        });
-        return soLuongBan[0];
-    }
 
 
     @Override
-    public void delHanghoaTT(int pos) {
+    public void delHanghoaTT(final int pos) {
+        final Dialog dialog = new Dialog(TinhtienActivity.this);
+        dialog.setTitle("Xác nhận xóa");
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.alert_dialog_del);
+        Button btnOK = dialog.findViewById(R.id.btnOK);
+        Button btnHuy = dialog.findViewById(R.id.btnHuy);
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listHanghoaTT.remove(pos);
+                listKey.remove(pos);
+                adapter_hh_tt.notifyItemRemoved(pos);
+                dialog.cancel();
+            }
+        });
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
 
     }
+
 
     @SuppressLint("MissingPermission")
     @Override

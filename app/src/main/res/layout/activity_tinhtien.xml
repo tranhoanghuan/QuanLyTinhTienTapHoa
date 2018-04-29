@@ -7,42 +7,37 @@
     android:orientation="vertical"
     android:weightSum="2"
     android:layout_marginTop="10dp"
-    android:gravity="center|center_horizontal"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+
+    android:gravity="center_horizontal"
     tools:context="tranhoanghuan.it.com.quanlytinhtientaphoa.TinhtienActivity">
 
-        <SurfaceView
-            android:id="@+id/camera_tt"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"/>
+    <SurfaceView
+        android:id="@+id/camera_tt"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"/>
 
-        <android.support.design.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center|center_horizontal">
+    <Button
+        android:id="@+id/btnThanhtoan"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="8dp"
+        android:text="Thanh toán"
+        android:textSize="20dp" />
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:id="@+id/recycleSpBan"
-                android:layout_marginBottom="60dp"
-                tools:listitem="@layout/item_tinhtien">
-            </android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleSpBan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        tools:listitem="@layout/item_tinhtien"></android.support.v7.widget.RecyclerView>
 
-            <Button
-                android:layout_margin="8dp"
-                android:id="@+id/btnThanhtoan"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:textSize="20dp"
-                android:layout_gravity="bottom"
-                android:text="Thanh toán"
-                style="@style/Widget.AppCompat.Button.Colored" />
 
-        </android.support.design.widget.CoordinatorLayout>
 
     </LinearLayout>
 

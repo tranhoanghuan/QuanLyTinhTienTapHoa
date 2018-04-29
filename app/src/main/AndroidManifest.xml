@@ -3,7 +3,7 @@
     package="tranhoanghuan.it.com.quanlytinhtientaphoa">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -13,44 +13,47 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- Add mobile vision dependencies and version to metadata-->
+        <!-- Add mobile vision dependencies and version to metadata -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="barcode"/>
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:label="Quản lý tính tiền"/>
+            android:value="barcode" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="Quản lý tính tiền"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TinhtienActivity"
-            android:screenOrientation="portrait"
             android:label="Tính tiền"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ThongkeActivity"
-            android:screenOrientation="portrait"
             android:label="Thống kê"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".QuantriActivity"
-            android:screenOrientation="portrait"
             android:label="Quản trị"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Add_Activity"
-            android:screenOrientation="portrait"
             android:label="Thêm hàng hóa"
-            android:windowSoftInputMode="adjustUnspecified"
-            android:parentActivityName=".QuantriActivity" />
+            android:parentActivityName=".QuantriActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified" />
         <activity
             android:name=".SuaHH"
-            android:screenOrientation="portrait"
             android:label="Sửa hàng hóa"
-            android:windowSoftInputMode="adjustUnspecified"
-            android:parentActivityName=".QuantriActivity" />
-        <activity android:name=".SignInActivity"
+            android:parentActivityName=".QuantriActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified" />
+        <activity
+            android:name=".SignInActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,9 +61,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"
-            android:screenOrientation="portrait"
-            android:label="Đăng ký"></activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="Đăng ký"
+            android:screenOrientation="portrait" />
+        <activity android:name=".TinhtienBangtay"
+            android:label="Tính tiền bằng tay"/>
+        <activity android:name=".ChitietHoadon"
+            android:label="Chi tiết hóa đơn"></activity>
     </application>
 
 </manifest>

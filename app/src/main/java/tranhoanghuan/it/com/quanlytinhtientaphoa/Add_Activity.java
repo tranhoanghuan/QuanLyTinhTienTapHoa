@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Canvas;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.net.ConnectivityManager;
@@ -21,7 +20,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
 
@@ -40,6 +38,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import tranhoanghuan.it.com.quanlytinhtientaphoa.Model.HangHoa;
 
 
 public class Add_Activity extends AppCompatActivity {
@@ -84,7 +83,7 @@ public class Add_Activity extends AppCompatActivity {
         txtGiale_add = findViewById(R.id.txtGiale_add);
         txtGiasi_add = findViewById(R.id.txtGiasi_add);
         txtslGiasi_add = findViewById(R.id.txtslGiasi_add);
-        sdf = new SimpleDateFormat("DDMMYYHHmmss");
+        sdf = new SimpleDateFormat("ddMMYY-HHmmss");
         bar = null;
         progressDialog = new ProgressDialog(this);
 

@@ -9,26 +9,31 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
-import tranhoanghuan.it.com.quanlytinhtientaphoa.HanghoaTinhtien;
+import tranhoanghuan.it.com.quanlytinhtientaphoa.Model.HanghoaTinhtien;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.Interface.IHanghoaTT;
 import tranhoanghuan.it.com.quanlytinhtientaphoa.R;
 
 public class Adapter_HH_TT extends RecyclerView.Adapter<item_HH_TT> {
     private Context context;
     private List<HanghoaTinhtien> hanghoaTinhtienList;
+    private List<String> keyList_TT;
     private Typeface typeface;
     private IHanghoaTT iHanghoaTT;
+    private ArrayList<Integer> index = new ArrayList();
 
     public Adapter_HH_TT() {
     }
 
-    public Adapter_HH_TT(Context context, List<HanghoaTinhtien> hanghoaTinhtienList, Typeface typeface, IHanghoaTT iHanghoaTT) {
+    public Adapter_HH_TT(Context context, List<HanghoaTinhtien> hanghoaTinhtienList, List<String> keyList_TT ,Typeface typeface, IHanghoaTT iHanghoaTT) {
         this.context = context;
         this.hanghoaTinhtienList = hanghoaTinhtienList;
+        this.keyList_TT = keyList_TT;
         this.typeface = typeface;
         this.iHanghoaTT = iHanghoaTT;
     }
@@ -41,26 +46,62 @@ public class Adapter_HH_TT extends RecyclerView.Adapter<item_HH_TT> {
 
     @Override
     public void onBindViewHolder(final item_HH_TT holder, final int position) {
-        final HanghoaTinhtien tinhtien = hanghoaTinhtienList.get(position);
         final DecimalFormat dec = new DecimalFormat("##,###,###,###");
+        final DecimalFormat def = new DecimalFormat("##,#");
+        final HanghoaTinhtien tinhtien = hanghoaTinhtienList.get(position);
+//        for (int i = 0; i < keyList_TT.size(); i++){
+//            if(keyList_TT.get(position).equals(keyList_TT.get(i))){
+//                index.add(i);
+//            }
+//        }
+//
+//        if(index.size() == 2){
+//            float sl_tt = tinhtien.getSoLuong();
+//            tinhtien.setSoLuong(sl_tt*2);
+//            hanghoaTinhtienList.remove(index.get(1));
+//            keyList_TT.remove(index.get(1));
+////            notifyItemRemoved(index.get(1));
+//        }
         holder.txtTenspTT.setText(tinhtien.getHangHoa().getTenHang());
-        final float[] sl = {tinhtien.getSoLuong()};
+        holder.txt_sl_sp.setText(Float.toString(tinhtien.getSoLuong()));
+        if(tinhtien.getSoLuong() >= tinhtien.getHangHoa().getSlGiasi()){
+            tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiaSi());
+            holder.txtGiaTT.setText(dec.format(tinhtien.getDonGiaTT()) + " VND");
+        }
+        else {
+            tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiale());
+            holder.txtGiaTT.setText(dec.format(tinhtien.getDonGiaTT()) + " VND");
+        }
         holder.imgSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(sl[0] >1){
-                    sl[0]--;
-                    tinhtien.setSoLuong(sl[0]);
-                    holder.txtGiaTT.setText(dec.format(tinhtien.getHangHoa().getGiaSi()) + " VND");
+                if(tinhtien.getSoLuong() > 1){
+                    tinhtien.setSoLuong(tinhtien.getSoLuong()-1);
+                    holder.txt_sl_sp.setText(Float.toString(tinhtien.getSoLuong()));
+                    if(tinhtien.getSoLuong() >= tinhtien.getHangHoa().getSlGiasi()){
+                        tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiaSi());
+                        holder.txtGiaTT.setText(dec.format(tinhtien.getDonGiaTT()) + " VND");
+                    }
+                    else {
+                        tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiale());
+                        holder.txtGiaTT.setText(dec.format(tinhtien.getDonGiaTT()) + " VND");
+                    }
                 }
             }
         });
         holder.imgPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sl[0]++;
-                tinhtien.setSoLuong(sl[0]);
-                holder.txtGiaTT.setText(dec.format(tinhtien.getHangHoa().getGiaSi()) + " VND");
+                tinhtien.setSoLuong((tinhtien.getSoLuong()+ 1));
+                holder.txt_sl_sp.setText(Float.toString(tinhtien.getSoLuong()));
+                if(tinhtien.getSoLuong() >= tinhtien.getHangHoa().getSlGiasi()){
+                    tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiaSi());
+                    holder.txtGiaTT.setText(dec.format(tinhtien.getDonGiaTT()) + " VND");
+                }
+                else {
+                    tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiale());
+                    holder.txtGiaTT.setText(dec.format(tinhtien.getDonGiaTT()) + " VND");
+                }
             }
         });
         holder.img_delete_tt.setOnClickListener(new View.OnClickListener() {
@@ -69,14 +110,28 @@ public class Adapter_HH_TT extends RecyclerView.Adapter<item_HH_TT> {
                 iHanghoaTT.delHanghoaTT(position);
             }
         });
-        holder.txt_sl_sp.setText(Float.toString(sl[0]));
-        if(sl[0] >= tinhtien.getHangHoa().getSlGiasi()){
-            holder.txtGiaTT.setText(dec.format(tinhtien.getHangHoa().getGiaSi()) + " VND");
-        }
-        else {
-            holder.txtGiaTT.setText(dec.format(tinhtien.getHangHoa().getGiale()) + " VND");
-        }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                float sl_1 = Float.parseFloat(holder.txt_sl_sp.getText().toString());
+                if(sl_1 > 0) {
+                    tinhtien.setSoLuong(sl_1);
+                }
+                else {
+                    holder.txt_sl_sp.setText(Float.toString(tinhtien.getSoLuong()));
+                }
+                if(tinhtien.getSoLuong() >= tinhtien.getHangHoa().getSlGiasi()){
+                    tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiaSi());
+                    holder.txtGiaTT.setText(dec.format(tinhtien.getDonGiaTT()) + " VND");
+                }
+                else {
+                    tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiale());
+                    holder.txtGiaTT.setText(dec.format(tinhtien.getDonGiaTT()) + " VND");
+                }
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
