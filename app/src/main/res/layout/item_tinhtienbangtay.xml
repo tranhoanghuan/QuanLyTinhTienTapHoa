@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="6dp"
+    android:layout_marginTop="6dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="20dp"
+    android:clickable="true"
+    android:id="@+id/card_list_item_ttbt"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/txtTensp_ttbt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Cà phê đen"
+                android:layout_marginLeft="10dp"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtGiale_ttbt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="VND 15.000"
+                android:layout_marginLeft="10dp"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtGiasi_ttbt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="VND 15.000"
+                android:layout_marginLeft="10dp"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtslGiasi_ttbt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:text="VND 15.000"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/chk_ttbt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+        />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

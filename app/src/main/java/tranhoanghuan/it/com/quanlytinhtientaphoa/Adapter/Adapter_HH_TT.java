@@ -47,21 +47,7 @@ public class Adapter_HH_TT extends RecyclerView.Adapter<item_HH_TT> {
     @Override
     public void onBindViewHolder(final item_HH_TT holder, final int position) {
         final DecimalFormat dec = new DecimalFormat("##,###,###,###");
-        final DecimalFormat def = new DecimalFormat("##,#");
         final HanghoaTinhtien tinhtien = hanghoaTinhtienList.get(position);
-//        for (int i = 0; i < keyList_TT.size(); i++){
-//            if(keyList_TT.get(position).equals(keyList_TT.get(i))){
-//                index.add(i);
-//            }
-//        }
-//
-//        if(index.size() == 2){
-//            float sl_tt = tinhtien.getSoLuong();
-//            tinhtien.setSoLuong(sl_tt*2);
-//            hanghoaTinhtienList.remove(index.get(1));
-//            keyList_TT.remove(index.get(1));
-////            notifyItemRemoved(index.get(1));
-//        }
         holder.txtTenspTT.setText(tinhtien.getHangHoa().getTenHang());
         holder.txt_sl_sp.setText(Float.toString(tinhtien.getSoLuong()));
         if(tinhtien.getSoLuong() >= tinhtien.getHangHoa().getSlGiasi()){
@@ -76,7 +62,7 @@ public class Adapter_HH_TT extends RecyclerView.Adapter<item_HH_TT> {
             @Override
             public void onClick(View view) {
                 if(tinhtien.getSoLuong() > 1){
-                    tinhtien.setSoLuong(tinhtien.getSoLuong()-1);
+                    tinhtien.setSoLuong( tinhtien.getSoLuong()-1F);
                     holder.txt_sl_sp.setText(Float.toString(tinhtien.getSoLuong()));
                     if(tinhtien.getSoLuong() >= tinhtien.getHangHoa().getSlGiasi()){
                         tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiaSi());
@@ -92,7 +78,7 @@ public class Adapter_HH_TT extends RecyclerView.Adapter<item_HH_TT> {
         holder.imgPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tinhtien.setSoLuong((tinhtien.getSoLuong()+ 1));
+                tinhtien.setSoLuong(tinhtien.getSoLuong());
                 holder.txt_sl_sp.setText(Float.toString(tinhtien.getSoLuong()));
                 if(tinhtien.getSoLuong() >= tinhtien.getHangHoa().getSlGiasi()){
                     tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiaSi());

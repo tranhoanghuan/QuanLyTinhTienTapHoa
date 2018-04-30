@@ -129,7 +129,7 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
             @Override
             public void onClick(View view) {
                 if(listHanghoaTT.size() > 0) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("ddwMMYYYYHHmmss");
+                    SimpleDateFormat sdf = new SimpleDateFormat("wddMMYYYYHHmmss");
                     Date d = new Date();
                     final String keyHD = sdf.format(d);
                     Map<String, Object> childUpdates = new HashMap<>();

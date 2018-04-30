@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="5dp"
+    android:weightSum="4">
+    <TextView
+        android:id="@+id/txtTenHanghd"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:text="Cà phê đen"
+        android:gravity="left"
+        android:autoSizeTextType="uniform"
+        />
+    <TextView
+        android:id="@+id/txtDongiahd"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.2"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="left"
+        android:paddingLeft="5dp"
+        android:textAllCaps="true"
+        android:text="1.000.000 VND"
+        android:autoSizeTextType="uniform"
+        />
+    <TextView
+        android:id="@+id/txtSoluonghd"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.6"
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:text="2.0"
+        android:paddingLeft="10dp"
+        android:gravity="left"
+        android:autoSizeTextType="uniform"
+        />
+    <TextView
+        android:id="@+id/txtTongHHhd"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.2"
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:text="2.000.000 VND"
+        android:paddingLeft="5dp"
+        android:gravity="left"
+        android:autoSizeTextType="uniform"
+        />
+
+
+
+</LinearLayout>

@@ -103,7 +103,6 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(SignInActivity.this, "Đăng nhập thành công!", Toast.LENGTH_LONG).show();
                     progressDialog.hide();
                     FirebaseUser user = mAuth.getCurrentUser();
                     String UID = user.getUid().toString();

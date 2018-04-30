@@ -65,10 +65,18 @@
             android:name=".SignUpActivity"
             android:label="Đăng ký"
             android:screenOrientation="portrait" />
-        <activity android:name=".TinhtienBangtay"
-            android:label="Tính tiền bằng tay"/>
-        <activity android:name=".ChitietHoadon"
-            android:label="Chi tiết hóa đơn"></activity>
+        <activity
+            android:name=".TinhtienBangtay"
+            android:label="Tính tiền bằng tay" />
+        <activity
+            android:name=".ChitietHoadon"
+            android:label="Chi tiết hóa đơn" />
+        <activity android:name=".Thongke_tongquat"
+            android:label="Thống kê tổng quát"
+            android:parentActivityName=".ThongkeActivity"/>
+        <activity android:name=".ChitietThongke"
+            android:label="Thống kê chi tiết"
+            android:parentActivityName=".Thongke_tongquat"></activity>
     </application>
 
 </manifest>
