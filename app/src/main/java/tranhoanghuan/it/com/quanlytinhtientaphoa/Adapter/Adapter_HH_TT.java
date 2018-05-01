@@ -62,7 +62,7 @@ public class Adapter_HH_TT extends RecyclerView.Adapter<item_HH_TT> {
             @Override
             public void onClick(View view) {
                 if(tinhtien.getSoLuong() > 1){
-                    tinhtien.setSoLuong( tinhtien.getSoLuong()-1F);
+                    tinhtien.setSoLuong( tinhtien.getSoLuong() - 1F);
                     holder.txt_sl_sp.setText(Float.toString(tinhtien.getSoLuong()));
                     if(tinhtien.getSoLuong() >= tinhtien.getHangHoa().getSlGiasi()){
                         tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiaSi());
@@ -78,7 +78,7 @@ public class Adapter_HH_TT extends RecyclerView.Adapter<item_HH_TT> {
         holder.imgPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tinhtien.setSoLuong(tinhtien.getSoLuong());
+                tinhtien.setSoLuong(tinhtien.getSoLuong() + 1F);
                 holder.txt_sl_sp.setText(Float.toString(tinhtien.getSoLuong()));
                 if(tinhtien.getSoLuong() >= tinhtien.getHangHoa().getSlGiasi()){
                     tinhtien.setDonGiaTT(tinhtien.getHangHoa().getGiaSi());

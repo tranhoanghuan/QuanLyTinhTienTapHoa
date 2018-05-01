@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,6 +66,8 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
     private Adapter_HH_TT adapter_hh_tt;
     private Typeface typeface;
     private String UID;
+    private SimpleDateFormat df;
+    private String strStart = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +162,7 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
     }
 
     private void addControls() {
-
+        df = new SimpleDateFormat("hh:mm:ss");
         recyclerViewTT = findViewById(R.id.recycleSpBan);
         listHanghoaTT = new ArrayList<>();
         listKey = new ArrayList<>();
@@ -205,6 +209,8 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
             }
         });
 
+
+
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
@@ -212,7 +218,7 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
             }
 
             @Override
-            public void receiveDetections(Detector.Detections<Barcode> detections) {
+            public void receiveDetections(final Detector.Detections<Barcode> detections) {
                 SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes != null && barcodes.size() > 0) {
                     String barcode = barcodes.valueAt(0).displayValue.toString();
@@ -225,7 +231,23 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
                 }
             }
         });
+    }
 
+
+    private boolean checkTime(String strStart,String strEnd){
+        boolean result = false;
+        try {
+            Date date1 = df.parse(strStart);
+            Date date2 = df.parse(strEnd);
+            long diff = date2.getTime() - date1.getTime();
+            if(diff >= 2000){
+                result = true;
+            }
+        }
+        catch (ParseException e) {
+            System.out.print(e);
+        }
+        return  result;
     }
 
     private void loadHanghoaFromFirebase() {
