@@ -41,7 +41,7 @@ public class AdapterChitietThongke extends RecyclerView.Adapter<item_CTKT> {
         HanghoaThongke thongke = HoadonListCTTK.get(position);
         holder.txtTenHangTK.setText(thongke.getTenHanghoaTK());
         holder.txtSoluongTK.setText(Float.toString(thongke.getSoLuongTK()));
-        holder.txtTongTK.setText(dec.format(thongke.getTongHanghoaTK()));
+        holder.txtTongTK.setText(dec.format(thongke.getTongHanghoaTK()) + " VND");
     }
 
     @Override

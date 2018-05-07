@@ -124,53 +124,6 @@ public class Thongke_tongquat extends AppCompatActivity implements IThongke{
                 }
                 keyTK.add(key);
 
-//                mDatabase.child(UID).child("Hoadon").child(key).addChildEventListener(new ChildEventListener() {
-//                    @Override
-//                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                        if(keyTK.contains(dataSnapshot.getKey())) {
-//                            int index = keyTK.indexOf(dataSnapshot.getKey());
-//                            HanghoaHoadon hoadon = dataSnapshot.getValue(HanghoaHoadon.class);
-//                            HanghoaThongke thongke = listHanghoaTK.get(index);
-//                            float sl = thongke.getSoLuongTK() + hoadon.getSoLuongHanghoa();
-//                            float tong = hoadon.getDonGia() *  hoadon.getSoLuongHanghoa();
-//                            long tongHH = (long)tong + thongke.getTongHanghoaTK();
-//                            thongke.setSoLuongTK(sl);
-//                            thongke.setTongHanghoaTK(tongHH);
-//                            adapter_tk_tq.notifyItemChanged(index);
-//                        }
-//
-//                        else {
-//                            HanghoaHoadon hoadon = dataSnapshot.getValue(HanghoaHoadon.class);
-//                            HanghoaThongke thongke = new HanghoaThongke();
-//                            thongke.setTenHanghoaTK(hoadon.getTenHanghoaTT());
-//                            thongke.setSoLuongTK(hoadon.getSoLuongHanghoa());
-//                            thongke.setTongHanghoaTK(hoadon.getDonGia()*(long)hoadon.getSoLuongHanghoa());
-//                            listHanghoaTK.add(thongke);
-//                            keyTK.add(dataSnapshot.getKey());
-//                            adapter_tk_tq.notifyDataSetChanged();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
             }
 
             @Override
@@ -211,68 +164,19 @@ public class Thongke_tongquat extends AppCompatActivity implements IThongke{
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String key = dataSnapshot.getKey();
-                String strMonth = key.substring(4,6);
-                String strYear = key.substring(6, 10);
+                String strMonth = key.substring(4,10);
                 if(key.length() == 15){
-                    strMonth= key.substring(3, 5);
-                    strYear = key.substring(5, 9);
+                    strMonth= key.substring(3, 9);
                 }
                 if(!listTK.contains(strMonth)){
                     flagKey.add(keyTK.size());
                     listTK.add(strMonth);
-                    String result = " ( Năm " +strYear+  " )";
+                    String result = "";
                     listTK_Phu.add(result);
                     adapter_tk_tq.notifyDataSetChanged();
                 }
                 keyTK.add(key);
-//                mDatabase.child(UID).child("Hoadon").child(key).addChildEventListener(new ChildEventListener() {
-//                    @Override
-//                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                        if(keyTK.contains(dataSnapshot.getKey())) {
-//                            int index = keyTK.indexOf(dataSnapshot.getKey());
-//                            HanghoaHoadon hoadon = dataSnapshot.getValue(HanghoaHoadon.class);
-//                            HanghoaThongke thongke = listHanghoaTK.get(index);
-//                            float sl = thongke.getSoLuongTK() + hoadon.getSoLuongHanghoa();
-//                            float tong = hoadon.getDonGia() *  hoadon.getSoLuongHanghoa();
-//                            long tongHH = (long)tong + thongke.getTongHanghoaTK();
-//                            thongke.setSoLuongTK(sl);
-//                            thongke.setTongHanghoaTK(tongHH);
-//                            adapter_tk_tq.notifyItemChanged(index);
-//                        }
-//
-//                        else {
-//                            HanghoaHoadon hoadon = dataSnapshot.getValue(HanghoaHoadon.class);
-//                            HanghoaThongke thongke = new HanghoaThongke();
-//                            thongke.setTenHanghoaTK(hoadon.getTenHanghoaTT());
-//                            thongke.setSoLuongTK(hoadon.getSoLuongHanghoa());
-//                            thongke.setTongHanghoaTK(hoadon.getDonGia()*(long)hoadon.getSoLuongHanghoa());
-//                            listHanghoaTK.add(thongke);
-//                            keyTK.add(dataSnapshot.getKey());
-//                            adapter_tk_tq.notifyDataSetChanged();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-//
+
             }
 
             @Override
@@ -316,12 +220,13 @@ public class Thongke_tongquat extends AppCompatActivity implements IThongke{
                 String week = key.substring(0,2);
                 String strYear = key.substring(6, 10);
                 if(key.length() == 15){
-                    week = String.valueOf(key.charAt(0));
-                    strYear = String.valueOf(key.substring(5, 9));
+                    week = key.substring(0,1);
+                    strYear = key.substring(5, 9);
                 }
-                if(!listTK.contains(week)){
+                String week_year = week + strYear;
+                if(!listTK.contains(week_year)){
                     flagKey.add(keyTK.size());
-                    listTK.add(week);
+                    listTK.add(week_year);
                     int tuan = Integer.parseInt(week);
                     int nam = Integer.parseInt(strYear);
                     Calendar c = new GregorianCalendar(Locale.getDefault());
@@ -337,54 +242,6 @@ public class Thongke_tongquat extends AppCompatActivity implements IThongke{
                     adapter_tk_tq.notifyDataSetChanged();
                 }
                 keyTK.add(key);
-
-//                mDatabase.child(UID).child("Hoadon").child(key).addChildEventListener(new ChildEventListener() {
-//                    @Override
-//                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                        if(keyTK.contains(dataSnapshot.getKey())) {
-//                            int index = keyTK.indexOf(dataSnapshot.getKey());
-//                            HanghoaHoadon hoadon = dataSnapshot.getValue(HanghoaHoadon.class);
-//                            HanghoaThongke thongke = listHanghoaTK.get(index);
-//                            float sl = thongke.getSoLuongTK() + hoadon.getSoLuongHanghoa();
-//                            float tong = hoadon.getDonGia() *  hoadon.getSoLuongHanghoa();
-//                            long tongHH = (long)tong + thongke.getTongHanghoaTK();
-//                            thongke.setSoLuongTK(sl);
-//                            thongke.setTongHanghoaTK(tongHH);
-//                            adapter_tk_tq.notifyItemChanged(index);
-//                        }
-//
-//                        else {
-//                            HanghoaHoadon hoadon = dataSnapshot.getValue(HanghoaHoadon.class);
-//                            HanghoaThongke thongke = new HanghoaThongke();
-//                            thongke.setTenHanghoaTK(hoadon.getTenHanghoaTT());
-//                            thongke.setSoLuongTK(hoadon.getSoLuongHanghoa());
-//                            thongke.setTongHanghoaTK(hoadon.getDonGia()*(long)hoadon.getSoLuongHanghoa());
-//                            listHanghoaTK.add(thongke);
-//                            keyTK.add(dataSnapshot.getKey());
-//                            adapter_tk_tq.notifyDataSetChanged();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
 
             }
 
@@ -426,7 +283,7 @@ public class Thongke_tongquat extends AppCompatActivity implements IThongke{
     }
 
     @Override
-    public void thongkeChitiet(int pos) {
+    public void thongkeChitiet(int pos, String name) {
         ArrayList<String> list = new ArrayList<String>();
         if(pos == (flagKey.size() - 1)){
             for(int i = flagKey.get(pos); i<keyTK.size(); i++){
@@ -441,7 +298,6 @@ public class Thongke_tongquat extends AppCompatActivity implements IThongke{
             }
         }
 
-        String name = loai + " " + listTK.get(pos);
         Intent intent = new Intent(Thongke_tongquat.this, ChitietThongke.class);
         intent.putStringArrayListExtra("listKey", list);
         intent.putExtra("name", name);

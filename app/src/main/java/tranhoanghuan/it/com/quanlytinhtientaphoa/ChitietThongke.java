@@ -84,7 +84,7 @@ public class ChitietThongke extends AppCompatActivity {
                         float tong = hoadon.getDonGia() * hoadon.getSoLuongHanghoa();
                         long tongHH = (long)tong + thongke.getTongHanghoaTK();
                         tongTienHH += (long)tong;
-                        txtTongTienTK.setText("Tổng tiền: " + dec.format(tongTienHH));
+                        txtTongTienTK.setText("Tổng tiền: " + dec.format(tongTienHH) + " VND");
                         thongke.setSoLuongTK(sl);
                         thongke.setTongHanghoaTK(tongHH);
                         thongke.setTenHanghoaTK(hoadon.getTenHanghoaTT());
@@ -98,7 +98,7 @@ public class ChitietThongke extends AppCompatActivity {
                         thongke.setSoLuongTK(hoadon.getSoLuongHanghoa());
                         float tong = (float)hoadon.getDonGia() * hoadon.getSoLuongHanghoa();
                         tongTienHH += (long)tong;
-                        txtTongTienTK.setText("Tổng tiền: " + dec.format(tongTienHH));
+                        txtTongTienTK.setText("Tổng tiền: " + dec.format(tongTienHH) + " VND");
                         thongke.setTongHanghoaTK((long)tong);
                         listHanghoaTKCT.add(thongke);
                         keyHHTK.add(dataSnapshot.getKey());

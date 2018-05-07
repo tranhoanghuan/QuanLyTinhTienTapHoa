@@ -66,8 +66,6 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
     private Adapter_HH_TT adapter_hh_tt;
     private Typeface typeface;
     private String UID;
-    private SimpleDateFormat df;
-    private String strStart = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +160,6 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
     }
 
     private void addControls() {
-        df = new SimpleDateFormat("hh:mm:ss");
         recyclerViewTT = findViewById(R.id.recycleSpBan);
         listHanghoaTT = new ArrayList<>();
         listKey = new ArrayList<>();
@@ -233,22 +230,6 @@ public class TinhtienActivity extends AppCompatActivity implements IHanghoaTT {
         });
     }
 
-
-    private boolean checkTime(String strStart,String strEnd){
-        boolean result = false;
-        try {
-            Date date1 = df.parse(strStart);
-            Date date2 = df.parse(strEnd);
-            long diff = date2.getTime() - date1.getTime();
-            if(diff >= 2000){
-                result = true;
-            }
-        }
-        catch (ParseException e) {
-            System.out.print(e);
-        }
-        return  result;
-    }
 
     private void loadHanghoaFromFirebase() {
         mDatabase.child(UID).child("Hanghoa").addListenerForSingleValueEvent(new ValueEventListener() {

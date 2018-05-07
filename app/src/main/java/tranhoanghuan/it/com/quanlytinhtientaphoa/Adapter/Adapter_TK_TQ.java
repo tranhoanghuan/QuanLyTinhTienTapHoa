@@ -46,13 +46,29 @@ public class Adapter_TK_TQ extends RecyclerView.Adapter<item_TK_TQ> {
     }
 
     @Override
-    public void onBindViewHolder(item_TK_TQ holder, final int position) {
-        final String name = loai + " " + listTK.get(position) + listTK_phu.get(position);
+    public void onBindViewHolder(final item_TK_TQ holder, final int position) {
+        String name = "";
+        switch (loai) {
+            case "Tuần":
+                if(listTK.get(position).length() == 6){
+                    name = loai + " " + listTK.get(position).substring(0,2) + listTK_phu.get(position);
+                }
+                else {
+                    name = loai + " " + listTK.get(position).substring(0,1) + listTK_phu.get(position);
+                }
+                break;
+            case "Tháng" :
+                name = loai + " " + listTK.get(position).substring(0,2) + " Năm " + listTK.get(position).substring(2,6);
+                break;
+            case "Năm" :
+                name = loai + " " + listTK.get(position);
+
+        }
         holder.txtThongke.setText(name);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iThongke.thongkeChitiet(position);
+                iThongke.thongkeChitiet(position, holder.txtThongke.getText().toString());
             }
         });
     }
